@@ -1,0 +1,29 @@
+### BEGIN INIT INFO
+# Provides:             nodeserver
+# Required-Start:
+# Required-Stop:
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    nodeserver Node App
+### END INIT INFO
+
+#export DISPLAY=:0
+export PATH=$PATH:/usr/bin:/usr/local/bin
+#export NODE_PATH=$NODE_PATH:/opt/node/lib/node_modules
+#export HOME=/root 
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/vc/lib:/usr/lib:/usr/local/lib"
+
+case "$1" in
+  start)
+    su pi -c '/usr/bin/node /home/pi/Documents/NodeProjects/tv/RaspberryPiTV/app.js 2>&1 > /dev/shm/node_log &'
+    ;;
+  stop)
+    killall -9 node
+    ;;
+  *)
+
+  echo "Usage: /etc/init.d/nodeserve {start|stop}"
+  exit 1
+  ;;
+esac
+exit 0
